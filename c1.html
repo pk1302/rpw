@@ -4,16 +4,25 @@
   <title>Image Grid with Preview</title>
   <style>
     .grid {
-      display: grid;
-      grid-gap: 5px; /* adjust as needed */
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* adjust as needed */
-    }
+  display: grid;
+  grid-gap: 5px; /* adjust as needed */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* adjust as needed */
+  max-width: 1200px; /* add max-width to limit grid width */
+  margin: 0 auto; /* add margin to center grid */
+  padding: 0 20px; /* add padding to create side gaps */
+}
 
     .grid img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       cursor: pointer; /* add cursor style for clickable images */
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* add drop shadow */
+      transition: transform 0.3s ease-in-out; /* add transition effect */
+    }
+
+    .grid img:hover {
+      transform: scale(1.02); /* modify value as needed */
     }
 
     .preview {
@@ -80,10 +89,18 @@
         max-height: 100%;
       }
     }
+
+    a {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* add drop shadow */
+      display: inline-block; /* add display property to enable box-shadow */
+    }
+
   </style>
 </head>
 <body>
-
+<a href="index.html" style="position: fixed; bottom: 20px; right: 20px;">
+  <img src="image/home-icon.png" alt="Home" width="50" height="50">
+</a>
   <div class="grid">
     <img src="c1/1.jpg">
     <img src="c1/2.jpg">
