@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Grid with Preview</title>
+  <style>
+    .grid {
+      display: grid;
+      grid-gap: 5px; /* adjust as needed */
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* adjust as needed */
+    }
+
+    .grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer; /* add cursor style for clickable images */
+    }
+
+    .preview {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* adjust as needed */
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .preview img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+
+    .prev, .next, .close {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    .close {
+      top: 10px;
+      right: 10px;
+    }
+
+    /* media queries */
+    @media only screen and (max-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media only screen and (max-width: 320px) {
+      .grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        grid-gap: 3px;
+      }
+
+      .preview img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grid">
+    <img src="c1/1.jpg">
+    <img src="c1/2.jpg">
+    <img src="c1/3.jpg">
+    <img src="c1/4.jpg">
+    <img src="c1/5.jpg">
+    <img src="c1/6.jpg">
+    <img src="c1/7.jpg">
+    <img src="c1/8.jpg">
+    <img src="c1/9.jpg">
+    <img src="c1/10.jpg">
+    <img src="c1/11.jpg">
+    <img src="c1/12.jpg">
+    <img src="c1/13.jpg">
+    <img src="c1/14.jpg">
+    <img src="c1/15.jpg">
+  </div>
+
+  <div class="preview">
+    <div class="prev">&#10094;</div>
+    <div class="next">&#10095;</div>
+    <div class="close">&#10006;</div>
+    <img src="">
+  </div>
+
+  <script>
+    const grid = document.querySelector('.grid');
+    const preview = document.querySelector('.preview');
+    const prev = document.querySelector('.prev');
+    const next = document.querySelector('.next');
+    const close = document.querySelector('.close');
+    const previewImg = preview.querySelector('img');
+    const images = grid.querySelectorAll('img');
+    let currentImageIndex = 0;
+
+    // add click event listener to each image in the grid
+    images.forEach((image, index) => {
+      image.addEventListener('click', () => {
+        // set the preview image source to the clicked image source
+        previewImg.src = image.src;
+        preview.style.display = 'flex';
+        currentImageIndex = index;
+      });
+    });
+
+    // add click event listener to the previous button
+    prev.addEventListener('click', () => {
+      currentImageIndex--;
+      if (currentImageIndex < 0) {
+        currentImageIndex = images.length - 1;
+      }
+      previewImg.src = images[currentImageIndex].src;
+    });
+
+    // add click event listener to the next button
+    next.addEventListener('click', () => {
+      currentImageIndex++;
+      if (currentImageIndex >= images.length) {
+        currentImageIndex = 0;
+      }
+      previewImg.src = images[currentImageIndex].src;
+    });
+
+    // add click event listener to the close button
+    close.addEventListener('click', () => {
+      preview.style.display = 'none';
+    });
+
+    // add keydown event listener to the document
+    document.addEventListener('keydown', e => {
+      if (preview.style.display === 'flex') {if (e.keyCode === 37) { // left arrow key
+currentImageIndex--;
+if (currentImageIndex < 0) {
+currentImageIndex = images.length - 1;
+}
+previewImg.src = images[currentImageIndex].src;
+} else if (e.keyCode === 39) { // right arrow key
+currentImageIndex++;
+if (currentImageIndex >= images.length) {
+currentImageIndex = 0;
+}
+previewImg.src = images[currentImageIndex].src;
+} else if (e.keyCode === 27) { // escape key
+preview.style.display = 'none';
+}
+}
+});
+
+</script> </body> </html>
